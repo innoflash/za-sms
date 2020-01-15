@@ -8,7 +8,7 @@ class Config
 {
     static function getProvider()
     {
-        $provider =  self::getProvider('provider');
+        $provider =  self::findConfig('provider');
         return self::validateOption('provider', $provider, array_keys(SMSProviders::$smsProviders));
     }
 
@@ -18,7 +18,7 @@ class Config
     static function findConfig(string $configName, string $file = 'za-sms'): string
     {
         $configName = $file . '.' . $configName;
-        dd($configName);
+        //  dd($configName);
         if (!config($configName))
             throw ConfigException::missingConfig($configName, $file);
         return config($configName);
