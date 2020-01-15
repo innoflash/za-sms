@@ -42,8 +42,8 @@ class ZoomConnectProvider extends SMSProviderContract
 
     private function getCredentials(): string
     {
-        $email = Config::findConfig($this->provider . '.email', 'services');
-        $token = Config::findConfig($this->provider . '.api_token', 'services');
+        $email = Config::getService($this->provider, 'email');
+        $token = Config::getService($this->provider, 'api_token');
         // dd(base64_encode($email . ':' . $token));
         return base64_encode($email . ':' . $token);
     }
@@ -52,7 +52,7 @@ class ZoomConnectProvider extends SMSProviderContract
     {
         return [
             'timeout' => 5.0,
-            'base_url' => Config::findConfig($this->provider . '.base_url', 'services'),
+            'base_url' => Config::getService($this->provider, 'base_url'),
             // 'auth' => [
             //     Config::findConfig($this->provider . '.email', 'services'),
             //     Config::findConfig($this->provider . '.api_token', 'services')
