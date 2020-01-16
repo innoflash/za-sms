@@ -12,6 +12,8 @@ abstract class SMSProviderContract
 {
     /**
      * The name of the provider of SMS same as in the Providers
+     * 
+     * It should match with the name you used to register the provider
      */
     protected $provider;
 
@@ -27,7 +29,7 @@ abstract class SMSProviderContract
     protected $messageData;
 
     /**
-     * The link ypu use to send a single SMS
+     * The link you use to send a single SMS
      */
     abstract function getSMSUrl(): string;
 
@@ -41,11 +43,15 @@ abstract class SMSProviderContract
 
     /**
      * Gets the headers to use when making the SMS call
+     * 
+     * An empty array can be used used if no headers are to be set
      */
     abstract function getHeaders();
 
     /**
      * Gets the data you wanna send to the HTTP endpoint of the SMS Provider
+     * 
+     * Can be an array or string
      */
     abstract function getMessageData();
 

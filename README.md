@@ -6,6 +6,13 @@
 ## Table of contents
 * [Introduction](#introduction)
 * [Installation](#install)
+* [Usage](#usage)
+    * [As notification](#use-as-a-notification)
+    * [As a facade](#use-as-a-facade)
+    * [Additional use](#additionally)
+* [Contributing](#contributing)
+* [Security](#security)
+* [License](#license)
 
 ## Introduction
 This package is aimed at creating a South African SMS package for for local SMS providers using their REST APIs.
@@ -58,42 +65,37 @@ za-sms supports being a driver for [Laravel Notification](https://laravel.com/do
 ### Use as a Facade
 At times you would want to send the SMS your own way so you can use the ```ZaSMS``` facade
 ```php
-        ZaSMS::setRecipientNumber('0651562779')
-            ->setMessage('the facade message')
-            ->sendMessage();
+    ZaSMS::setRecipientNumber('0651562779')
+        ->setMessage('the facade message')
+        ->sendMessage();
 
-        //or
+    //or
 
-        ZaSMS::setMessageData([
-            'recipientNumber' => '0027651562779',
-            'message' => 'data message'
-            ])->sendMessage()
+    ZaSMS::setMessageData([
+        'recipientNumber' => '0027651562779',
+        'message' => 'data message'
+        ])->sendMessage();
 ```
 
 ### Additionally
 You can also access the SMS Provider object using all available service container methods
 ```php
-$provider = app()->make('za-sms');
-$provider = app()->make(SMSProviderContract::class);
+    $provider = app()->make('za-sms');
+    $provider = app()->make(SMSProviderContract::class);
 
-$provider = resolve('za-sms');
-$provider = resolve(SMSProviderContract::class);
+    $provider = resolve('za-sms');
+    $provider = resolve(SMSProviderContract::class);
 
-//or use dependency injection
+    //or use dependency injection
 
-function myFunction(SMSProviderContract: $provider){
-    //todo use the provider
-}
-```
-## Testing
-Run the tests with:
-
-``` bash
-vendor/bin/phpunit
+    function myFunction(SMSProviderContract $provider){
+        //todo use the provider
+    }
 ```
 
 ## Contributing
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+* Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+* Add a provider using this [manual](./manual.md)
 
 ## Security
 If you discover any security-related issues, please email innocentmazando@gmail.com instead of using the issue tracker.

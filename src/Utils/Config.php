@@ -9,7 +9,8 @@ class Config
     static function getProvider()
     {
         $provider =  self::findConfig('provider');
-        return self::validateOption('provider', $provider, array_keys(SMSProviders::$smsProviders));
+        $providers = self::findConfig('providers');
+        return self::validateOption('provider', $provider, array_keys($providers));
     }
 
     /**
