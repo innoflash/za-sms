@@ -17,6 +17,13 @@ class ZaSMS
      */
     protected $recipient;
 
+    /**
+     * The max number of segments to send per request
+     *
+     * @var [type]
+     */
+    private $maxSegments;
+
 
     /**
      * The campaign you are SMSing for
@@ -52,6 +59,12 @@ class ZaSMS
         return $this;
     }
 
+    function maxSegments(int $maxSegments)
+    {
+        $this->maxSegments = $maxSegments;
+        return $this;
+    }
+
     function getMessage(): string
     {
         return $this->message;
@@ -70,5 +83,10 @@ class ZaSMS
     function getSentAt()
     {
         return $this->sendAt;
+    }
+
+    function getMaxSegments()
+    {
+        return $this->maxSegments;
     }
 }

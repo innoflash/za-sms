@@ -49,6 +49,14 @@ class ZoomConnectProvider extends SMSProviderContract
         'base_url' => 'https://www.zoomconnect.com/app/'
     ]
 ```
+* For the provider to support using Facades SMSing you should add your provider case in the ```src/Utils/Helper::getMessageData()``` method
+```php
+    case 'zoomconnect';
+        $data['recipientNumber'] = $to;
+        if ($zaSMS->getCampaign())
+            $data['campaign'] = $zaSMS->getCampaign();
+        break;
+```
 
 ### Override Contract
 The ```SMSProviderContract``` is an abstract class with a bunch of mandatory methods an fields. Lets list them and see how we sould override them

@@ -8,7 +8,6 @@ use Innoflash\ZaSms\Contracts\BulkSMSProviderContract;
 use Innoflash\ZaSms\Contracts\SMSProviderContract;
 use Innoflash\ZaSms\Exceptions\ClassException;
 use Innoflash\ZaSms\Utils\Config;
-use Innoflash\ZaSms\Utils\SMSProviders;
 
 class ZaSmsServiceProvider extends ServiceProvider
 {
@@ -32,12 +31,13 @@ class ZaSmsServiceProvider extends ServiceProvider
     private function setUpProviders()
     {
         $provider = Config::getProvider();
-        $this->app->singleton(SMSProviderContract::class, function () use ($provider) {
-            return new SMSProviders::$smsProviders[$provider];
+        $providers = Config::findConfig('providers');
+        $this->app->singleton(SMSProviderContract::class, function () use ($provider, $providers) {
+            return new $providers[$provider]();
         });
 
-        $this->app->singleton(BulkSMSProviderContract::class, function () use ($provider) {
-            $className = str_replace('SMSProviders\\', 'SMSProviders\\Bulk\\', SMSProviders::$smsProviders[$provider]);
+        $this->app->singleton(BulkSMSProviderContract::class, function () use ($provider, $providers) {
+            $className = str_replace('SMSProviders\\', 'SMSProviders\\Bulk\\', $providers);
             if (!class_exists($className))
                 throw ClassException::bulkProviderException($provider, $className);
             return new $className();

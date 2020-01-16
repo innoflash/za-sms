@@ -11,7 +11,7 @@ class WinSMSProvider extends SMSProviderContract
 
     function getSMSUrl(): string
     {
-        return 'sms/outgoing/send';
+        return 'v1/sms/outgoing/send';
     }
 
     function getConfigValidationFields(): array
@@ -19,6 +19,13 @@ class WinSMSProvider extends SMSProviderContract
         return [
             'api_key',
             'base_url'
+        ];
+    }
+
+    function getGuzzleDefaults(): array
+    {
+        return [
+            'base_uri' => Config::getService($this->provider, 'base_url')
         ];
     }
 

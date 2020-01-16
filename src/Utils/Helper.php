@@ -2,6 +2,7 @@
 
 namespace Innoflash\ZaSms\Utils;
 
+use Carbon\Carbon;
 use Innoflash\ZaSms\Message\ZaSMS;
 
 class Helper
@@ -16,13 +17,27 @@ class Helper
     static function makeSMSData(string $to, ZaSMS $zaSMS): array
     {
         $data = [];
+        $data['message'] = $zaSMS->getMessage();
+
         switch (Config::getProvider()) {
             case 'zoomconnect';
                 $data['recipientNumber'] = $to;
-                $data['message'] = $zaSMS->getMessage();
                 if ($zaSMS->getCampaign())
                     $data['campaign'] = $zaSMS->getCampaign();
                 break;
+            case 'winsms':
+                $data['recipients'] = [$to];
+
+                if ($zaSMS->getSentAt())
+                    $data['scheduledTime'] = $zaSMS->getSentAt()->format('YmdHi');
+                if ($zaSMS->getMaxSegments())
+                    $data['maxSegments'] = $zaSMS->getMaxSegments();
+                break;
+            default:
+                $data['recipientNumber'] = $to;
+                break;
+
+                //add cases here
         }
         return $data;
     }
