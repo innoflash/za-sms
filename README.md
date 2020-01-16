@@ -18,6 +18,7 @@
 This package is aimed at creating a South African SMS package for for local SMS providers using their REST APIs.
 Below is a list of providers we currently integrated: 
 * [ZoomConnect](https://www.zoomconnect.com/)
+* [WinSMS](https://www.winsms.co.za/)
 
 ## Install
 `composer require innoflash/za-sms`
@@ -31,6 +32,7 @@ ZA_SMS_PROVIDER={provider}
 Available providers:
 
 * [zoomconnect](./setups/zoomconnect.md)
+* [winsms](./setups/winsms.md)
 
 ### Use as a notification
 za-sms supports being a driver for [Laravel Notification](https://laravel.com/docs/6.x/notifications)

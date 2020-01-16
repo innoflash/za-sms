@@ -26,7 +26,11 @@ class Helper
                     $data['campaign'] = $zaSMS->getCampaign();
                 break;
             case 'winsms':
-                $data['recipients'] = [$to];
+                $data['recipients'] = [
+                    [
+                        'mobileNumber' => $to
+                    ]
+                ];
 
                 if ($zaSMS->getSentAt())
                     $data['scheduledTime'] = $zaSMS->getSentAt()->format('YmdHi');
