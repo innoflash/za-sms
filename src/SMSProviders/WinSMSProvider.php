@@ -11,7 +11,7 @@ class WinSMSProvider extends SMSProviderContract
 
     function getSMSUrl(): string
     {
-        return 'v1/sms/outgoing/send';
+        return 'sms/outgoing/send';
     }
 
     function getConfigValidationFields(): array
