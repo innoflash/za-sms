@@ -6,7 +6,14 @@ use Innoflash\ZaSms\Message\ZaSMS;
 
 class Helper
 {
-    static function makeSMSData(string $to, ZaSMS $zaSMS)
+    /**
+     * Makes the data you wanna sent via your selected provider
+     *
+     * @param string $to The number you are senting to
+     * @param ZaSMS $zaSMS The message body from the notification
+     * @return array The data you are senting to via the provider
+     */
+    static function makeSMSData(string $to, ZaSMS $zaSMS): array
     {
         $data = [];
         switch (Config::getProvider()) {

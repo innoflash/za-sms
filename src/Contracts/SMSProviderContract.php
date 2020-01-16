@@ -49,6 +49,11 @@ abstract class SMSProviderContract
      */
     abstract function getMessageData();
 
+    /**
+     * Validates your provider configuration
+     *
+     * @return void
+     */
     function validateConfig()
     {
         if (!$this->provider)
@@ -66,6 +71,11 @@ abstract class SMSProviderContract
         }
     }
 
+    /**
+     * Checks whether or not a URL is set for sending the message
+     *
+     * @return void
+     */
     function validateUrl()
     {
         if (!$this->getSMSUrl())
@@ -74,12 +84,21 @@ abstract class SMSProviderContract
 
     /**
      * Sets the recipient number
+     *
+     * @param string $recipientNumber The number you are senting an SMS to
+     * @return void
      */
     function setRecipientNumber(string $recipientNumber)
     {
         $this->recipientNumber = $recipientNumber;
     }
 
+    /**
+     * The message you wanna sent
+     *
+     * @param string $message
+     * @return void
+     */
     function setMessage(string $message)
     {
         $this->message = $message;
@@ -87,6 +106,8 @@ abstract class SMSProviderContract
 
     /**
      * Gets the number set for this message to be created
+     *
+     * @return string phone number
      */
     function getRecipientNumber(): string
     {
@@ -96,6 +117,11 @@ abstract class SMSProviderContract
         return $this->recipientNumber;
     }
 
+    /**
+     * Gets the message you wanna sent
+     *
+     * @return string message
+     */
     function getMessage(): string
     {
         if (!$this->message)
@@ -104,17 +130,33 @@ abstract class SMSProviderContract
         return $this->message;
     }
 
+    /**
+     * Default config for GuzzleHttp/Client
+     *
+     * @return array
+     */
     function getGuzzleDefaults(): array
     {
         return $this->guzzleDefaults;
     }
 
 
+    /**
+     * This sets the data you wanna send over the URL
+     *
+     * @param array $messageData message and the recipient and your extra data
+     * @return void
+     */
     function setMessageData(array $messageData)
     {
         $this->messageData = $messageData;
     }
 
+    /**
+     * This sends your message via the selected provider
+     *
+     * @return void
+     */
     function sendMessage()
     {
         $this->validateConfig();
