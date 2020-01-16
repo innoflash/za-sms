@@ -1,10 +1,10 @@
 <?php
 
-namespace Innoflash\ZaSms;
+namespace Innoflash\ZaSms\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class ZaSmsFacade extends Facade
+class ZaSMS extends Facade
 {
     /**
      * Get the registered name of the component.

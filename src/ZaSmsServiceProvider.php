@@ -79,7 +79,7 @@ class ZaSmsServiceProvider extends ServiceProvider
     {
         // Register facade
         $this->app->singleton('za-sms', function () {
-            return new ZaSmsFacade;
+            return $this->app->make(SMSProviderContract::class);
         });
     }
 

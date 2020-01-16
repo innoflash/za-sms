@@ -88,20 +88,23 @@ abstract class SMSProviderContract
      * @param string $recipientNumber The number you are senting an SMS to
      * @return void
      */
-    function setRecipientNumber(string $recipientNumber)
+    function setRecipientNumber(string $recipientNumber): self
     {
         $this->recipientNumber = $recipientNumber;
+        return $this;
     }
 
     /**
+     * Undocumented function
      * The message you wanna sent
      *
      * @param string $message
-     * @return void
+     * @return self
      */
-    function setMessage(string $message)
+    function setMessage(string $message): self
     {
         $this->message = $message;
+        return $this;
     }
 
     /**
@@ -147,9 +150,10 @@ abstract class SMSProviderContract
      * @param array $messageData message and the recipient and your extra data
      * @return void
      */
-    function setMessageData(array $messageData)
+    function setMessageData(array $messageData): self
     {
         $this->messageData = $messageData;
+        return $this;
     }
 
     /**

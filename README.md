@@ -55,6 +55,33 @@ za-sms supports being a driver for [Laravel Notification](https://laravel.com/do
     }
 ```
 
+### Use as a Facade
+At times you would want to send the SMS your own way so you can use the ```ZaSMS``` facade
+```php
+        ZaSMS::setRecipientNumber('0651562779')
+            ->setMessage('the facade message')
+            ->sendMessage();
+
+        //or
+
+        ZaSMS::setMessageData([
+            'recipientNumber' => '0027651562779',
+            'message' => 'data message'
+            ])->sendMessage()
+```
+
+### Additionally
+You can also access the SMS Provider object using all available service container methods
+```php
+$provider = app()->make('za-sms');
+$provider = app()->make(SMSProviderContract::class);
+
+$provider = resolve('za-sms');
+$provider = resolve(SMSProviderContract::class);
+
+//or use dependency injection
+function myFunction(SMSProviderContract::class){}
+```
 ## Testing
 Run the tests with:
 

@@ -65,7 +65,7 @@ class ZoomConnectProvider extends SMSProviderContract
     {
         $this->validateConfig();
         $this->validateUrl();
-        // dd(json_encode($this->getMessageData()), $this->getSMSUrl());
+        //dd($this->getSMSUrl());
         return file_get_contents($this->getSMSUrl(), null, stream_context_create(array(
             'http' => array(
                 'method'           => 'POST',
