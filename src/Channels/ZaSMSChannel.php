@@ -13,9 +13,9 @@ class ZaSMSChannel
     protected $zaSMS;
     private $smsProvider;
 
-    public function __construct()
+    public function __construct(SMSProviderContract $smsProvider)
     {
-        $this->smsProvider = resolve(SMSProviderContract::class);
+        $this->smsProvider = $smsProvider;
     }
 
 

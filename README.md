@@ -23,7 +23,37 @@ ZA_SMS_PROVIDER={provider}
 
 Available providers:
 
-* [zoomconnect](setups/zoomcoonect.md)
+* [zoomconnect](./setups/zoomconnect.md)
+
+### Use as a notification
+za-sms supports being a driver for [Laravel Notification](https://laravel.com/docs/6.x/notifications)
+
+* In the ```Notifiable``` class set your model phone number field by overriding this
+```php
+    function routeNotificationForZasms($notification)
+    {
+        return $this->phone_number;
+    }
+```
+
+* In the ```Notification``` class use the za-sms as follows
+```php
+    public function via($notifiable)
+    {
+        return [ZaSMSChannel::class];
+    }
+```
+
+* Then create the notification body as follows
+```php
+    function toZaSMS($notifiable)
+    {
+        return (new ZaSMS)
+            ->message('This is my message')  
+            ->sendAt(now()->addDays(2)) // for scheduling messegaes 
+            ->campaign('my campain'); //for message campaining
+    }
+```
 
 ## Testing
 Run the tests with:

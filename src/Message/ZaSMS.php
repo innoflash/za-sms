@@ -6,11 +6,6 @@ use Carbon\Carbon;
 
 class ZaSMS
 {
-
-    function __construct(string $message)
-    {
-        $this->message = $message;
-    }
     /**
      * The message to send
      */
