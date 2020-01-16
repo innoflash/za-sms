@@ -4,7 +4,9 @@ namespace Innoflash\ZaSms;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Innoflash\ZaSms\Contracts\BulkSMSProviderContract;
 use Innoflash\ZaSms\Contracts\SMSProviderContract;
+use Innoflash\ZaSms\Exceptions\ClassException;
 use Innoflash\ZaSms\Utils\Config;
 use Innoflash\ZaSms\Utils\SMSProviders;
 
@@ -20,13 +22,25 @@ class ZaSmsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/za-sms.php', 'za-sms');
         $this->publishThings();
         $this->register();
+        $this->setUpProviders();
+
         // $this->loadViewsFrom(__DIR__.'/resources/views', 'za-sms');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->registerRoutes();
+    }
 
-        $this->app->singleton(SMSProviderContract::class, function () {
-            $provider = Config::getProvider();
+    private function setUpProviders()
+    {
+        $provider = Config::getProvider();
+        $this->app->singleton(SMSProviderContract::class, function () use ($provider) {
             return new SMSProviders::$smsProviders[$provider];
+        });
+
+        $this->app->singleton(BulkSMSProviderContract::class, function () use ($provider) {
+            $class = str_replace('SMSProviders\\', 'SMSProviders\\Bulk\\', SMSProviders::$smsProviders[$provider]);
+            if (!class_exists($class))
+                throw ClassException::bulkProviderException($provider, $class);
+            return new $class();
         });
     }
 

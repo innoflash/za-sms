@@ -115,12 +115,12 @@ abstract class SMSProviderContract
         $clientConfig = array_merge($this->getGuzzleDefaults(), [
             'headers' => $this->getHeaders()
         ]);
-        //return $clientConfig;
+
         $client = new Client($clientConfig);
         if (is_string($this->getMessageData()))
             $format = 'body';
         else $format = 'json';
-        // dd($client);
+
         return $client->post($this->getSMSUrl(), [
             $format => $this->getMessageData()
         ]);

@@ -10,4 +10,9 @@ class ClassException extends Exception
     {
         return new static($class . ': ' . $message);
     }
+
+    static function bulkProviderException(string $provider, string $class): self
+    {
+        return new static("$provider does not support bulk SMS, the class $class is missing");
+    }
 }

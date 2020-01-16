@@ -24,24 +24,20 @@ class ZoomConnectProvider extends SMSProviderContract
 
     function getMessageData()
     {
-        $data = new stdClass();
-        $data->message = $this->getMessage();
-        $data->recipientNumber = $this->getRecipientNumber();
         return [
             'recipientNumber' => $this->getRecipientNumber(),
             'message' => $this->getMessage(),
         ];
-        // return json_encode($data);
     }
 
-    function getHeaders(): array
+    function getHeaders()
     {
         return [
             'Content-Type: application/json',
             'Accept: application/json',
             'Authorization: Basic ' . $this->getCredentials(),
-            'Connection: close',
-            'Content-Length: ' . strlen(json_encode($this->getMessageData()))
+            'Content-Length: ' . strlen(json_encode($this->getMessageData())),
+            'Access-Control-Allow-Origin: *'
         ];
     }
 
