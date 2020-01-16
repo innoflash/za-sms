@@ -21,4 +21,9 @@ class ConfigException extends Exception
     {
         return new static(Config::getProvider() . $missingPart . " is not set in the config/services.php");
     }
+
+    static function missingNumber()
+    {
+        return new static('Could not find phone number from model, override *routeNotificationForZasms* on your Notifiable class');
+    }
 }

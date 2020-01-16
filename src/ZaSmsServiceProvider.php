@@ -37,10 +37,10 @@ class ZaSmsServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(BulkSMSProviderContract::class, function () use ($provider) {
-            $class = str_replace('SMSProviders\\', 'SMSProviders\\Bulk\\', SMSProviders::$smsProviders[$provider]);
-            if (!class_exists($class))
-                throw ClassException::bulkProviderException($provider, $class);
-            return new $class();
+            $className = str_replace('SMSProviders\\', 'SMSProviders\\Bulk\\', SMSProviders::$smsProviders[$provider]);
+            if (!class_exists($className))
+                throw ClassException::bulkProviderException($provider, $className);
+            return new $className();
         });
     }
 

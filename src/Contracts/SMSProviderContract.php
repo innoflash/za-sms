@@ -24,6 +24,7 @@ abstract class SMSProviderContract
 
     private $recipientNumber;
     private $message;
+    protected $messageData;
 
     /**
      * The link ypu use to send a single SMS
@@ -94,6 +95,7 @@ abstract class SMSProviderContract
 
         return $this->recipientNumber;
     }
+
     function getMessage(): string
     {
         if (!$this->message)
@@ -105,6 +107,12 @@ abstract class SMSProviderContract
     function getGuzzleDefaults(): array
     {
         return $this->guzzleDefaults;
+    }
+
+
+    function setMessageData(array $messageData)
+    {
+        $this->messageData = $messageData;
     }
 
     function sendMessage()

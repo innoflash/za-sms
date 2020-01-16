@@ -24,7 +24,7 @@ class ZoomConnectProvider extends SMSProviderContract
 
     function getMessageData()
     {
-        return [
+        return $this->messageData ?: [
             'recipientNumber' => $this->getRecipientNumber(),
             'message' => $this->getMessage(),
         ];
