@@ -1,6 +1,6 @@
 {
     "name": "innoflash/za-sms",
-    "description": "Your Package Description here",
+    "description": "An SMS package to handle SMS sending from South African providers",
     "type": "library",
     "license": "MIT",
     "keywords": [
