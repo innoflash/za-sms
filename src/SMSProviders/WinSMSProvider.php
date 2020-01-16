@@ -2,7 +2,41 @@
 
 namespace Innoflash\ZaSms\SMSProviders;
 
-class WinSMSProvider
+use Innoflash\ZaSms\Contracts\SMSProviderContract;
+use Innoflash\ZaSms\Utils\Config;
+
+class WinSMSProvider extends SMSProviderContract
 {
-    # code...
+    protected $provider = 'winsms';
+
+    function getSMSUrl(): string
+    {
+        return 'sms/outgoing/send';
+    }
+
+    function getConfigValidationFields(): array
+    {
+        return [
+            'api_key',
+            'base_url'
+        ];
+    }
+
+    function getHeaders()
+    {
+        return [
+            'AUTHORIZATION' => Config::getService($this->provider, 'api_key'),
+            'Content-Type' => 'application/json',
+        ];
+    }
+
+    function getMessageData()
+    {
+        return $this->messageData ?: [
+            'message' => $this->getMessage(),
+            'recipients' => [
+                $this->getRecipientNumber()
+            ]
+        ];
+    }
 }
