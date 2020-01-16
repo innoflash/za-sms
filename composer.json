@@ -3,6 +3,12 @@
     "description": "Your Package Description here",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "Laravel SMS package",
+        "South Africa SMS",
+        "ZA SMS package",
+        "Zoomconnect"
+    ],
     "authors": [
         {
             "name": "Innocent Mazando",

@@ -12,7 +12,7 @@ class ZoomConnectProvider extends SMSProviderContract
 
     function getSMSUrl(): string
     {
-        return 'https://www.zoomconnect.com/app/api/rest/v1/sms/send';
+        return 'https://www.zoomconnect.com/app/api/rest/v1/sms/send.json';
     }
 
     function getConfigValidationFields(): array
@@ -24,7 +24,7 @@ class ZoomConnectProvider extends SMSProviderContract
 
     function getMessageData()
     {
-        return [
+        return $this->messageData ?: [
             'recipientNumber' => $this->getRecipientNumber(),
             'message' => $this->getMessage(),
         ];
@@ -59,5 +59,22 @@ class ZoomConnectProvider extends SMSProviderContract
             //     Config::findConfig($this->provider . '.api_token', 'services')
             // ]
         ];
+    }
+
+    function sendMessage()
+    {
+        $this->validateConfig();
+        $this->validateUrl();
+        // dd(json_encode($this->getMessageData()), $this->getSMSUrl());
+        return file_get_contents($this->getSMSUrl(), null, stream_context_create(array(
+            'http' => array(
+                'method'           => 'POST',
+                'header'           => "Content-type: application/json\r\n" .
+                    "Connection: close\r\n" .
+                    "Content-length: " . strlen(json_encode($this->getMessageData())) . "\r\n" .
+                    "Authorization: Basic " . $this->getCredentials() . "\r\n",
+                'content'          => json_encode($this->getMessageData()),
+            ),
+        )));
     }
 }
