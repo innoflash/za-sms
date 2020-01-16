@@ -24,7 +24,6 @@ class ZaSMSChannel
         if (!$to = $notifiable->routeNotificationFor('zasms', $notification))
             throw ConfigException::missingNumber();
 
-
         $message = $notification->toZaSMS($notifiable);
 
         if (is_string($message))

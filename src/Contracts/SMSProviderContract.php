@@ -125,12 +125,12 @@ abstract class SMSProviderContract
         ]);
 
         $client = new Client($clientConfig);
-        if (is_string($this->getMessageData()))
+        if (is_string($this->messageData ?: $this->getMessageData()))
             $format = 'body';
         else $format = 'json';
 
         return $client->post($this->getSMSUrl(), [
-            $format => $this->getMessageData()
+            $format => $this->messageData ?: $this->getMessageData()
         ]);
     }
 }
