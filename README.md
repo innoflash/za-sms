@@ -80,7 +80,10 @@ $provider = resolve('za-sms');
 $provider = resolve(SMSProviderContract::class);
 
 //or use dependency injection
-function myFunction(SMSProviderContract::class){}
+
+function myFunction(SMSProviderContract: $provider){
+    //todo use the provider
+}
 ```
 ## Testing
 Run the tests with:
