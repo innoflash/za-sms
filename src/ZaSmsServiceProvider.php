@@ -28,13 +28,16 @@ class ZaSmsServiceProvider extends ServiceProvider
 
     private function setUpProviders()
     {
-        $provider = Config::getProvider();
-        $providers = Config::findConfig('providers');
-        $this->app->singleton(SMSProviderContract::class, function () use ($provider, $providers) {
+        $this->app->singleton(SMSProviderContract::class, function () {
+            $provider = Config::getProvider();
+            $providers = Config::findConfig('providers');
             return new $providers[$provider]();
         });
 
-        $this->app->singleton(BulkSMSProviderContract::class, function () use ($provider, $providers) {
+        $this->app->singleton(BulkSMSProviderContract::class, function () {
+            $provider = Config::getProvider();
+            $providers = Config::findConfig('providers');
+
             $className = str_replace('SMSProviders\\', 'SMSProviders\\Bulk\\', $providers);
             if (!class_exists($className))
                 throw ClassException::bulkProviderException($provider, $className);
