@@ -20,8 +20,6 @@ class ZaSmsServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/za-sms.php', 'za-sms');
         $this->publishThings();
-        $this->register();
-        $this->setUpProviders();
 
         // $this->loadViewsFrom(__DIR__.'/resources/views', 'za-sms');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -77,6 +75,8 @@ class ZaSmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->setUpProviders();
+
         // Register facade
         $this->app->singleton('za-sms', function () {
             return $this->app->make(SMSProviderContract::class);
