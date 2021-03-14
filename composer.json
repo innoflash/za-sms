@@ -20,7 +20,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/notifications": "^5.1|^6.0|^7.0|^8.0",
         "illuminate/support": "^5.1|^6.0|^7.0|^8.0",
         "illuminate/events": "^5.1|^6.0|^7.0|^8.0",
